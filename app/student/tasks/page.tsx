@@ -3,16 +3,25 @@
 import Link from "next/link";
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { LateBadge } from "@/components/StatusBadge";
+import { SubmissionStats } from "@/components/SubmissionStats";
 import { MOCK_NOW } from "@/lib/now";
 import { useStore } from "@/lib/store";
 
 export default function StudentTasksPage() {
   const { currentStudentId, getTasksForStudent, getSubmissionForTask } = useStore();
   const tasks = getTasksForStudent(currentStudentId).sort((a, b) => (a.dueAt < b.dueAt ? -1 : 1));
+  const submittedCount = tasks.filter((t) => getSubmissionForTask(t.id, currentStudentId)).length;
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-4">
       <h1 className="text-lg font-bold text-stone-800">先生からのタスク</h1>
+
+      {tasks.length > 0 && (
+        <div className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+          <p className="mb-2 text-xs text-stone-500">自分の提出状況</p>
+          <SubmissionStats submitted={submittedCount} total={tasks.length} barColorClassName="bg-teal-500" />
+        </div>
+      )}
 
       {tasks.length === 0 && (
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-8 text-center text-sm text-stone-400">

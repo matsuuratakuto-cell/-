@@ -51,9 +51,21 @@ export interface ActivityRecord {
   createdAt: string;
 }
 
+export type Grade = 1 | 2 | 3;
+
+export const GRADES: Grade[] = [1, 2, 3];
+
+// 富山第一高等学校のコース構成を参考にしたコース区分（本パイロットは総合コースが対象）
+export type Course = "S特別進学コース" | "特別進学コース" | "総合コース" | "美術コース";
+
+export const COURSES: Course[] = ["S特別進学コース", "特別進学コース", "総合コース", "美術コース"];
+
 export interface Student {
   id: string;
   displayName: string;
+  grade: Grade;
+  course: Course;
+  className: string;
   points: number;
   streakDays: number;
   lastRecordDate?: string;

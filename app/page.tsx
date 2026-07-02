@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Avatar } from "@/components/Avatar";
 import { useStore } from "@/lib/store";
 
 export default function Home() {
@@ -24,37 +23,47 @@ export default function Home() {
       </p>
 
       <div className="grid w-full gap-6 sm:grid-cols-2">
-        <Link
-          href="/student"
-          className="group flex flex-col items-center gap-4 rounded-2xl border border-stone-200 bg-white p-8 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-        >
-          <Avatar stage={3} size={100} />
+        <div className="flex flex-col items-center gap-4 rounded-2xl border border-stone-200 bg-white p-8 text-center shadow-sm">
+          <div className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-teal-50 text-4xl">
+            🎒
+          </div>
           <div>
-            <div className="text-lg font-semibold text-stone-800 group-hover:text-teal-700">
-              生徒として見る
-            </div>
+            <div className="text-lg font-semibold text-stone-800">生徒として見る</div>
             <p className="mt-1 text-xs text-stone-500">
-              活動記録の入力、AI深掘り対話、動物アバターの育成
+              活動記録の入力、AI深掘り対話、タスクの提出状況確認
             </p>
           </div>
-        </Link>
+          <Link
+            href="/login"
+            className="w-full rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700"
+          >
+            生徒ログイン画面へ
+          </Link>
+          <Link href="/student" className="text-[11px] text-stone-400 underline decoration-dotted hover:text-stone-600">
+            （テスト用）ログインを省略して直接見る
+          </Link>
+        </div>
 
-        <Link
-          href="/teacher"
-          className="group flex flex-col items-center gap-4 rounded-2xl border border-stone-200 bg-white p-8 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-        >
+        <div className="flex flex-col items-center gap-4 rounded-2xl border border-stone-200 bg-white p-8 text-center shadow-sm">
           <div className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-indigo-50 text-4xl">
             🧑‍🏫
           </div>
           <div>
-            <div className="text-lg font-semibold text-stone-800 group-hover:text-indigo-700">
-              教員として見る
-            </div>
+            <div className="text-lg font-semibold text-stone-800">教員として見る</div>
             <p className="mt-1 text-xs text-stone-500">
               記録の確認・フィードバック、タスク発行、サマリーレポート出力
             </p>
           </div>
-        </Link>
+          <Link
+            href="/teacher-login"
+            className="w-full rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+          >
+            教員ログイン画面へ
+          </Link>
+          <Link href="/teacher" className="text-[11px] text-stone-400 underline decoration-dotted hover:text-stone-600">
+            （テスト用）ログインを省略して直接見る
+          </Link>
+        </div>
       </div>
 
       {confirmingReset ? (

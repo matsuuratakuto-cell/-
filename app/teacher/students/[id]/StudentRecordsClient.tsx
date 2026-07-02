@@ -2,14 +2,13 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Avatar } from "@/components/Avatar";
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { LateBadge, StatusBadge } from "@/components/StatusBadge";
-import { getAvatarStage } from "@/lib/avatar";
+import { SubmissionStats } from "@/components/SubmissionStats";
 import { useStore } from "@/lib/store";
 
 export function StudentRecordsClient({ studentId }: { studentId: string }) {
-  const { getStudent, getRecordsByStudent } = useStore();
+  const { getStudent, getRecordsByStudent, getTasksForStudent, getOpenTasksForStudent } = useStore();
   const [statusFilter, setStatusFilter] = useState<"all" | "未確認" | "確認済み">("all");
   const student = getStudent(studentId);
   const records = getRecordsByStudent(studentId).filter(
@@ -18,7 +17,9 @@ export function StudentRecordsClient({ studentId }: { studentId: string }) {
 
   if (!student) return <p className="text-sm text-stone-400">生徒が見つかりません。</p>;
 
-  const stage = getAvatarStage(student.points);
+  const tasks = getTasksForStudent(studentId);
+  const openTasks = getOpenTasksForStudent(studentId);
+  const submittedCount = tasks.length - openTasks.length;
 
   return (
     <div className="flex flex-col gap-5">
@@ -26,15 +27,18 @@ export function StudentRecordsClient({ studentId }: { studentId: string }) {
         ← 担当生徒一覧に戻る
       </Link>
 
-      <div className="flex items-center gap-4 rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
-        <Avatar stage={stage.stage} size={70} />
-        <div>
+      <div className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+        <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
           <p className="font-mono text-base font-bold text-stone-800">{student.id}</p>
           <p className="text-xs text-stone-500">
-            {stage.name} ・ {student.points}pt ・ 連続記録 {student.streakDays}日 ・ 記録{" "}
-            {getRecordsByStudent(studentId).length}件
+            {student.points}pt ・ 連続記録 {student.streakDays}日 ・ 記録 {getRecordsByStudent(studentId).length}件
           </p>
         </div>
+        {tasks.length > 0 ? (
+          <SubmissionStats submitted={submittedCount} total={tasks.length} barColorClassName="bg-indigo-500" />
+        ) : (
+          <p className="text-xs text-stone-400">対応中のタスクはありません。</p>
+        )}
       </div>
 
       <div className="flex gap-2">

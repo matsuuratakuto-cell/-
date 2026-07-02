@@ -68,12 +68,14 @@ function NewRecordForm() {
               onChange={(e) => setTaskId(e.target.value)}
               className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm"
             >
-              <option value="">選択しない</option>
-              {openTasks.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.title}（期限：{t.dueAt.replace("T", " ")}）
-                </option>
-              ))}
+              {[
+                <option key="none" value="">選択しない</option>,
+                ...openTasks.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.title}（期限：{t.dueAt.replace("T", " ")}）
+                  </option>
+                )),
+              ]}
             </select>
           </div>
         )}

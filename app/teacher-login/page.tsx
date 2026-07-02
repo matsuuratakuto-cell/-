@@ -1,0 +1,95 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { GoogleIcon } from "@/components/GoogleIcon";
+
+export default function TeacherLoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [status, setStatus] = useState<"idle" | "signing_in" | "google">("idle");
+
+  function handleSignIn(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim() || !password.trim() || status !== "idle") return;
+    setStatus("signing_in");
+    setTimeout(() => router.push("/teacher"), 900);
+  }
+
+  function handleGoogleLogin() {
+    if (status !== "idle") return;
+    setStatus("google");
+    setTimeout(() => router.push("/teacher"), 900);
+  }
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center bg-stone-50 px-6 py-16">
+      <div className="mb-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-indigo-600">
+        <span>青楓館高等学院</span>
+        <span className="text-stone-300">/</span>
+        <span>教員ログイン</span>
+      </div>
+
+      <div className="w-full max-w-sm rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">
+        <h1 className="mb-1 text-center text-lg font-bold text-stone-800">教員ログイン</h1>
+        <p className="mb-6 text-center text-xs text-stone-500">学校のメールアドレスでログインします</p>
+
+        <form onSubmit={handleSignIn} className="flex flex-col gap-3">
+          <label className="block text-left text-xs font-semibold text-stone-600">
+            学校のメールアドレス
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="sato@seifukan.ed.jp"
+              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm"
+            />
+          </label>
+          <label className="block text-left text-xs font-semibold text-stone-600">
+            パスワード
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm"
+            />
+          </label>
+          <button
+            type="submit"
+            disabled={status === "signing_in"}
+            className="rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 disabled:opacity-50"
+          >
+            {status === "signing_in" ? "ログインしています…" : "ログイン"}
+          </button>
+        </form>
+
+        <div className="my-5 flex items-center gap-3 text-xs text-stone-400">
+          <div className="h-px flex-1 bg-stone-200" />
+          または
+          <div className="h-px flex-1 bg-stone-200" />
+        </div>
+
+        <button
+          onClick={handleGoogleLogin}
+          disabled={status === "google"}
+          className="flex w-full items-center justify-center gap-2 rounded-full border border-stone-300 bg-white px-4 py-2.5 text-sm font-medium text-stone-700 hover:bg-stone-50 disabled:opacity-50"
+        >
+          <GoogleIcon />
+          {status === "google" ? "Googleでログインしています…" : "Googleでログイン"}
+        </button>
+      </div>
+
+      <p className="mt-6 text-center text-[11px] text-stone-400">
+        ※ このログイン画面はUIモックです。実際の認証・アカウント連携はまだ行われません。
+      </p>
+      <Link href="/" className="mt-3 text-xs text-stone-400 underline decoration-dotted hover:text-stone-600">
+        ← モックTOPに戻る
+      </Link>
+    </main>
+  );
+}

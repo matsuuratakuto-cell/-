@@ -18,8 +18,8 @@ export const TEACHERS: Teacher[] = [
 
 // 教員の「担当生徒」割り当て（モック用）
 export const TEACHER_ASSIGNMENTS: Record<string, string[]> = {
-  "T-001": ["S-001", "S-002", "S-003"],
-  "T-002": ["S-004", "S-005"],
+  "T-001": ["S-001", "S-002", "S-003", "S-006", "S-008"],
+  "T-002": ["S-004", "S-005", "S-007"],
 };
 
 // システムはこの対応表を保持しない。校内で別管理される想定のデモ表示用データ。
@@ -29,6 +29,9 @@ export const NAME_MAPPING: Record<string, string> = {
   "S-003": "中村 美咲",
   "S-004": "田中 悠斗",
   "S-005": "小林 さくら",
+  "S-006": "木村 陸",
+  "S-007": "斎藤 美月",
+  "S-008": "松本 蒼",
 };
 
 function makeRounds(selections: number[]): AIDialogueRound[] {
@@ -354,11 +357,14 @@ export const INITIAL_RECORDS: ActivityRecord[] = [
 ];
 
 export const INITIAL_STUDENTS: Student[] = [
-  { id: "S-001", displayName: "生徒001", points: 245, streakDays: 6, lastRecordDate: "2026-07-01" },
-  { id: "S-002", displayName: "生徒002", points: 95, streakDays: 3, lastRecordDate: "2026-07-02" },
-  { id: "S-003", displayName: "生徒003", points: 40, streakDays: 1, lastRecordDate: "2026-06-24" },
-  { id: "S-004", displayName: "生徒004", points: 15, streakDays: 1, lastRecordDate: "2026-06-29" },
-  { id: "S-005", displayName: "生徒005", points: 320, streakDays: 9, lastRecordDate: "2026-07-01" },
+  { id: "S-001", displayName: "生徒001", grade: 2, course: "総合コース", className: "2組", points: 245, streakDays: 6, lastRecordDate: "2026-07-01" },
+  { id: "S-002", displayName: "生徒002", grade: 2, course: "総合コース", className: "3組", points: 95, streakDays: 3, lastRecordDate: "2026-07-02" },
+  { id: "S-003", displayName: "生徒003", grade: 1, course: "総合コース", className: "2組", points: 40, streakDays: 1, lastRecordDate: "2026-06-24" },
+  { id: "S-004", displayName: "生徒004", grade: 1, course: "総合コース", className: "4組", points: 15, streakDays: 1, lastRecordDate: "2026-06-29" },
+  { id: "S-005", displayName: "生徒005", grade: 3, course: "総合コース", className: "2組", points: 320, streakDays: 9, lastRecordDate: "2026-07-01" },
+  { id: "S-006", displayName: "生徒006", grade: 2, course: "特別進学コース", className: "5組", points: 0, streakDays: 0 },
+  { id: "S-007", displayName: "生徒007", grade: 3, course: "S特別進学コース", className: "6組", points: 0, streakDays: 0 },
+  { id: "S-008", displayName: "生徒008", grade: 1, course: "美術コース", className: "1組", points: 0, streakDays: 0 },
 ];
 
 export const INITIAL_POINT_EVENTS: PointEvent[] = [

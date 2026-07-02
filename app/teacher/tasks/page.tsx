@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CategoryBadge } from "@/components/CategoryBadge";
+import { SubmissionStats } from "@/components/SubmissionStats";
 import { MOCK_NOW } from "@/lib/now";
 import { useStore } from "@/lib/store";
 
@@ -26,7 +27,7 @@ export default function TeacherTasksPage() {
             <Link
               key={t.id}
               href={`/teacher/tasks/${t.id}`}
-              className="flex flex-col gap-2 rounded-xl border border-stone-200 bg-white p-4 shadow-sm transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-col gap-3 rounded-xl border border-stone-200 bg-white p-4 shadow-sm transition hover:shadow-md"
             >
               <div className="flex flex-col gap-1.5">
                 <div className="flex flex-wrap items-center gap-2">
@@ -39,9 +40,11 @@ export default function TeacherTasksPage() {
                 <div className="text-sm font-semibold text-stone-800">{t.title}</div>
                 <div className="text-xs text-stone-400">期限：{t.dueAt.replace("T", " ")}</div>
               </div>
-              <div className="shrink-0 text-sm font-semibold text-stone-600">
-                提出 {submittedCount} / {targetIds.length}
-              </div>
+              <SubmissionStats
+                submitted={submittedCount}
+                total={targetIds.length}
+                barColorClassName={overdue ? "bg-rose-400" : "bg-indigo-500"}
+              />
             </Link>
           );
         })}

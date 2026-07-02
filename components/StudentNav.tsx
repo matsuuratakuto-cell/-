@@ -9,7 +9,6 @@ const LINKS = [
   { href: "/student/records", label: "活動記録" },
   { href: "/student/records/new", label: "記録する" },
   { href: "/student/tasks", label: "タスク" },
-  { href: "/student/avatar", label: "育成" },
 ];
 
 export function StudentNav() {

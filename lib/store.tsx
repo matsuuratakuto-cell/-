@@ -17,6 +17,8 @@ import { addDays, isConsecutiveDay, nowISO } from "./now";
 import {
   ActivityRecord,
   Category,
+  Course,
+  Grade,
   PointEvent,
   Student,
   Task,
@@ -83,6 +85,7 @@ interface StoreValue extends PersistedState {
   nameMapping: typeof NAME_MAPPING;
   setCurrentTeacherId: (id: string) => void;
   setCurrentStudentId: (id: string) => void;
+  updateStudentProfile: (studentId: string, profile: { grade: Grade; course: Course; className: string }) => void;
   getStudent: (id: string) => Student | undefined;
   getRecord: (id: string) => ActivityRecord | undefined;
   getRecordsByStudent: (id: string) => ActivityRecord[];
@@ -338,6 +341,15 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       nameMapping: NAME_MAPPING,
       setCurrentTeacherId: (id) => setState((prev) => (prev ? { ...prev, currentTeacherId: id } : prev)),
       setCurrentStudentId: (id) => setState((prev) => (prev ? { ...prev, currentStudentId: id } : prev)),
+      updateStudentProfile: (studentId, profile) =>
+        setState((prev) =>
+          prev
+            ? {
+                ...prev,
+                students: prev.students.map((s) => (s.id === studentId ? { ...s, ...profile } : s)),
+              }
+            : prev
+        ),
       getStudent,
       getRecord,
       getRecordsByStudent,
