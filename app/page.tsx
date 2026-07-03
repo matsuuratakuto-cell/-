@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-1 flex-col items-center justify-center px-6 py-16">
-      <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-teal-600">
+      <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-600">
         <span>青楓館高等学院</span>
         <span className="text-stone-300">/</span>
         <span>UIモック（Supabase連携・ログイン機能なし）</span>
@@ -24,7 +24,7 @@ export default function Home() {
 
       <div className="grid w-full gap-6 sm:grid-cols-2">
         <div className="flex flex-col items-center gap-4 rounded-2xl border border-stone-200 bg-white p-8 text-center shadow-sm">
-          <div className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-teal-50 text-4xl">
+          <div className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-brand-50 text-4xl">
             🎒
           </div>
           <div>
@@ -35,7 +35,7 @@ export default function Home() {
           </div>
           <Link
             href="/login"
-            className="w-full rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700"
+            className="w-full rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
           >
             生徒ログイン画面へ
           </Link>
@@ -45,7 +45,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col items-center gap-4 rounded-2xl border border-stone-200 bg-white p-8 text-center shadow-sm">
-          <div className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-indigo-50 text-4xl">
+          <div className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-brand-50 text-4xl">
             🧑‍🏫
           </div>
           <div>
@@ -56,7 +56,7 @@ export default function Home() {
           </div>
           <Link
             href="/teacher-login"
-            className="w-full rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+            className="w-full rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
           >
             教員ログイン画面へ
           </Link>

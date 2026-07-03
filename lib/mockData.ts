@@ -5,7 +5,6 @@ import {
   AIDialogue,
   AIDialogueRound,
   Category,
-  PointEvent,
   Student,
   Task,
   Teacher,
@@ -357,23 +356,12 @@ export const INITIAL_RECORDS: ActivityRecord[] = [
 ];
 
 export const INITIAL_STUDENTS: Student[] = [
-  { id: "S-001", displayName: "生徒001", grade: 2, course: "総合コース", className: "2組", points: 245, streakDays: 6, lastRecordDate: "2026-07-01" },
-  { id: "S-002", displayName: "生徒002", grade: 2, course: "総合コース", className: "3組", points: 95, streakDays: 3, lastRecordDate: "2026-07-02" },
-  { id: "S-003", displayName: "生徒003", grade: 1, course: "総合コース", className: "2組", points: 40, streakDays: 1, lastRecordDate: "2026-06-24" },
-  { id: "S-004", displayName: "生徒004", grade: 1, course: "総合コース", className: "4組", points: 15, streakDays: 1, lastRecordDate: "2026-06-29" },
-  { id: "S-005", displayName: "生徒005", grade: 3, course: "総合コース", className: "2組", points: 320, streakDays: 9, lastRecordDate: "2026-07-01" },
-  { id: "S-006", displayName: "生徒006", grade: 2, course: "特別進学コース", className: "5組", points: 0, streakDays: 0 },
-  { id: "S-007", displayName: "生徒007", grade: 3, course: "S特別進学コース", className: "6組", points: 0, streakDays: 0 },
-  { id: "S-008", displayName: "生徒008", grade: 1, course: "美術コース", className: "1組", points: 0, streakDays: 0 },
-];
-
-export const INITIAL_POINT_EVENTS: PointEvent[] = [
-  { id: "P-0001", studentId: "S-001", amount: 10, reason: "記録を書く：商店街の空き家調査", createdAt: "2026-06-15T18:40" },
-  { id: "P-0002", studentId: "S-001", amount: 15, reason: "AI深掘りを完了", createdAt: "2026-06-15T18:55" },
-  { id: "P-0003", studentId: "S-001", amount: 20, reason: "タスク早期提出ボーナス：1学期 探究中間ふりかえり", createdAt: "2026-07-01T21:10" },
-  { id: "P-0004", studentId: "S-002", amount: 10, reason: "記録を書く：バスケ部 県大会予選レポート", createdAt: "2026-06-18T20:15" },
-  { id: "P-0005", studentId: "S-003", amount: 10, reason: "記録を書く：地域清掃活動に参加", createdAt: "2026-06-05T16:20" },
-  { id: "P-0006", studentId: "S-004", amount: 10, reason: "記録を書く：吹奏楽部 初めての合奏体験", createdAt: "2026-06-29T18:00" },
-  { id: "P-0007", studentId: "S-005", amount: 15, reason: "AI深掘りを完了（追加ラウンド含む）", createdAt: "2026-06-10T19:50" },
-  { id: "P-0008", studentId: "S-005", amount: 20, reason: "タスク早期提出ボーナス：1学期 探究中間ふりかえり", createdAt: "2026-06-27T15:00" },
+  { id: "S-001", displayName: "生徒001", grade: 2, course: "総合コース", className: "2組", streakDays: 6, lastRecordDate: "2026-07-01" },
+  { id: "S-002", displayName: "生徒002", grade: 2, course: "総合コース", className: "3組", streakDays: 3, lastRecordDate: "2026-07-02" },
+  { id: "S-003", displayName: "生徒003", grade: 1, course: "総合コース", className: "2組", streakDays: 1, lastRecordDate: "2026-06-24" },
+  { id: "S-004", displayName: "生徒004", grade: 1, course: "総合コース", className: "4組", streakDays: 1, lastRecordDate: "2026-06-29" },
+  { id: "S-005", displayName: "生徒005", grade: 3, course: "総合コース", className: "2組", streakDays: 9, lastRecordDate: "2026-07-01" },
+  { id: "S-006", displayName: "生徒006", grade: 2, course: "特別進学コース", className: "5組", streakDays: 0 },
+  { id: "S-007", displayName: "生徒007", grade: 3, course: "S特別進学コース", className: "6組", streakDays: 0 },
+  { id: "S-008", displayName: "生徒008", grade: 1, course: "美術コース", className: "1組", streakDays: 0 },
 ];

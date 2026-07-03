@@ -69,7 +69,7 @@ export function TeacherRecordDetailClient({ recordId }: { recordId: string }) {
         <div className="mb-2 flex items-center justify-between">
           <h2 className="text-sm font-bold text-stone-700">AI深掘りサマリー</h2>
           {record.aiDialogue.rounds.length > 0 && (
-            <button onClick={() => setShowTranscript((v) => !v)} className="text-xs font-semibold text-teal-600 hover:underline">
+            <button onClick={() => setShowTranscript((v) => !v)} className="text-xs font-semibold text-brand-600 hover:underline">
               {showTranscript ? "対話全文を隠す" : "対話全文を見る"}
             </button>
           )}
@@ -101,8 +101,8 @@ export function TeacherRecordDetailClient({ recordId }: { recordId: string }) {
         <h2 className="mb-3 text-sm font-bold text-stone-700">フィードバック</h2>
         <ul className="mb-4 flex flex-col gap-3">
           {record.feedback.map((f) => (
-            <li key={f.id} className="rounded-lg bg-indigo-50 p-3">
-              <p className="mb-1 text-xs font-semibold text-indigo-700">{f.teacherName}</p>
+            <li key={f.id} className="rounded-lg bg-brand-50 p-3">
+              <p className="mb-1 text-xs font-semibold text-brand-700">{f.teacherName}</p>
               <p className="text-sm text-stone-700">{f.comment}</p>
               <p className="mt-1 text-[10px] text-stone-400">{f.createdAt.replace("T", " ")}</p>
             </li>
@@ -119,7 +119,7 @@ export function TeacherRecordDetailClient({ recordId }: { recordId: string }) {
           <button
             type="submit"
             disabled={!comment.trim()}
-            className="self-start rounded-full bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-700 disabled:opacity-40"
+            className="self-start rounded-full bg-brand-600 px-4 py-2 text-xs font-semibold text-white hover:bg-brand-700 disabled:opacity-40"
           >
             フィードバックを送信
           </button>

@@ -14,18 +14,18 @@ export default function StudentTasksPage() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-4">
-      <h1 className="text-lg font-bold text-stone-800">先生からのタスク</h1>
+      <h1 className="text-lg font-bold text-stone-800">先生からの宿題</h1>
 
       {tasks.length > 0 && (
         <div className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
           <p className="mb-2 text-xs text-stone-500">自分の提出状況</p>
-          <SubmissionStats submitted={submittedCount} total={tasks.length} barColorClassName="bg-teal-500" />
+          <SubmissionStats submitted={submittedCount} total={tasks.length} barColorClassName="bg-brand-500" />
         </div>
       )}
 
       {tasks.length === 0 && (
         <p className="rounded-xl border border-dashed border-stone-300 bg-white p-8 text-center text-sm text-stone-400">
-          現在、対応が必要なタスクはありません。
+          現在、対応が必要な宿題はありません。
         </p>
       )}
 
@@ -64,7 +64,7 @@ export default function StudentTasksPage() {
                 提出内容を見る
               </Link>
             ) : (
-              <Link href={`/student/records/new?task=${t.id}`} className="self-start rounded-full bg-teal-600 px-4 py-2 text-xs font-semibold text-white hover:bg-teal-700">
+              <Link href={`/student/records/new?task=${t.id}`} className="self-start rounded-full bg-brand-600 px-4 py-2 text-xs font-semibold text-white hover:bg-brand-700">
                 記録して提出する
               </Link>
             )}

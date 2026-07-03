@@ -72,10 +72,10 @@ export function AIDialogueClient({ recordId }: { recordId: string }) {
                     onClick={() => handleSelect(r.round, idx)}
                     className={`rounded-full px-3 py-1.5 text-xs font-medium ring-1 ring-inset transition ${
                       selected
-                        ? "bg-teal-600 text-white ring-teal-600"
+                        ? "bg-brand-600 text-white ring-brand-600"
                         : disabled
                           ? "bg-stone-50 text-stone-300 ring-stone-100"
-                          : "bg-white text-stone-600 ring-stone-300 hover:bg-teal-50 hover:ring-teal-300"
+                          : "bg-white text-stone-600 ring-stone-300 hover:bg-brand-50 hover:ring-brand-300"
                     }`}
                   >
                     {choice}
@@ -112,12 +112,12 @@ export function AIDialogueClient({ recordId }: { recordId: string }) {
         )}
 
         {!thinking && dialogue.status === "closed" && dialogue.summary && (
-          <div className="flex flex-col gap-3 rounded-xl bg-teal-50 p-4">
-            <p className="text-xs font-bold text-teal-700">✅ AIサマリー（教員への報告用・約400字）</p>
+          <div className="flex flex-col gap-3 rounded-xl bg-brand-50 p-4">
+            <p className="text-xs font-bold text-brand-700">✅ AIサマリー（教員への報告用・約400字）</p>
             <p className="text-sm leading-relaxed text-stone-700">{dialogue.summary}</p>
-            <p className="text-xs text-teal-600">記録を書く・AI深掘りを完了したことでポイントが加算されました。</p>
+            <p className="text-xs text-brand-600">記録を書く・AI深掘りを完了したことでポイントが加算されました。</p>
             <div className="flex gap-2">
-              <Link href={`/student/records/${record.id}`} className="rounded-full bg-teal-600 px-4 py-2 text-xs font-semibold text-white hover:bg-teal-700">
+              <Link href={`/student/records/${record.id}`} className="rounded-full bg-brand-600 px-4 py-2 text-xs font-semibold text-white hover:bg-brand-700">
                 記録の詳細を見る
               </Link>
               <Link href="/student" className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-stone-600 ring-1 ring-inset ring-stone-300 hover:bg-stone-50">

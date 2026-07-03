@@ -55,7 +55,7 @@ export function RecordDetailClient({ recordId }: { recordId: string }) {
       <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
         <div className="mb-2 flex items-center justify-between">
           <h2 className="text-sm font-bold text-stone-700">AI深掘り対話</h2>
-          <Link href={`/student/records/${record.id}/ai`} className="text-xs font-semibold text-teal-600 hover:underline">
+          <Link href={`/student/records/${record.id}/ai`} className="text-xs font-semibold text-brand-600 hover:underline">
             {dialogueDone ? "対話を振り返る →" : "対話を続ける →"}
           </Link>
         </div>
@@ -77,8 +77,8 @@ export function RecordDetailClient({ recordId }: { recordId: string }) {
         ) : (
           <ul className="flex flex-col gap-3">
             {record.feedback.map((f) => (
-              <li key={f.id} className="rounded-lg bg-indigo-50 p-3">
-                <p className="mb-1 text-xs font-semibold text-indigo-700">{f.teacherName}</p>
+              <li key={f.id} className="rounded-lg bg-brand-50 p-3">
+                <p className="mb-1 text-xs font-semibold text-brand-700">{f.teacherName}</p>
                 <p className="text-sm text-stone-700">{f.comment}</p>
                 <p className="mt-1 text-[10px] text-stone-400">{f.createdAt.replace("T", " ")}</p>
               </li>

@@ -26,7 +26,7 @@ export default function TeacherLoginPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-stone-50 px-6 py-16">
-      <div className="mb-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-indigo-600">
+      <div className="mb-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-600">
         <span>青楓館高等学院</span>
         <span className="text-stone-300">/</span>
         <span>教員ログイン</span>
@@ -62,7 +62,7 @@ export default function TeacherLoginPage() {
           <button
             type="submit"
             disabled={status === "signing_in"}
-            className="rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 disabled:opacity-50"
+            className="rounded-full bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-50"
           >
             {status === "signing_in" ? "ログインしています…" : "ログイン"}
           </button>

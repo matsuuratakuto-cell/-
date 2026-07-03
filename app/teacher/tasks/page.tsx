@@ -12,9 +12,9 @@ export default function TeacherTasksPage() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-lg font-bold text-stone-800">タスク管理</h1>
-        <Link href="/teacher/tasks/new" className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">
-          ＋ タスクを発行する
+        <h1 className="text-lg font-bold text-stone-800">宿題管理</h1>
+        <Link href="/teacher/tasks/new" className="rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">
+          ＋ 宿題を発行する
         </Link>
       </div>
 
@@ -43,7 +43,7 @@ export default function TeacherTasksPage() {
               <SubmissionStats
                 submitted={submittedCount}
                 total={targetIds.length}
-                barColorClassName={overdue ? "bg-rose-400" : "bg-indigo-500"}
+                barColorClassName={overdue ? "bg-rose-400" : "bg-brand-500"}
               />
             </Link>
           );

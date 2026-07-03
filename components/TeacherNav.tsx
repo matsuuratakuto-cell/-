@@ -6,7 +6,7 @@ import { useStore } from "@/lib/store";
 
 const LINKS = [
   { href: "/teacher", label: "担当生徒" },
-  { href: "/teacher/tasks", label: "タスク管理" },
+  { href: "/teacher/tasks", label: "宿題管理" },
   { href: "/teacher/reports", label: "サマリーレポート" },
 ];
 
@@ -21,7 +21,7 @@ export function TeacherNav() {
           <Link href="/" className="text-sm font-semibold text-stone-400 hover:text-stone-600">
             ← モックTOP
           </Link>
-          <span className="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-200">
+          <span className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700 ring-1 ring-inset ring-brand-200">
             教員として表示中
           </span>
         </div>
@@ -48,7 +48,7 @@ export function TeacherNav() {
               key={l.href}
               href={l.href}
               className={`whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium transition ${
-                active ? "bg-indigo-600 text-white" : "text-stone-600 hover:bg-stone-100"
+                active ? "bg-brand-600 text-white" : "text-stone-600 hover:bg-stone-100"
               }`}
             >
               {l.label}

@@ -16,12 +16,7 @@ export default function StudentRecordsPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-lg font-bold text-stone-800">活動記録一覧</h1>
-        <Link href="/student/records/new" className="rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700">
-          ＋ 新しく記録する
-        </Link>
-      </div>
+      <h1 className="text-lg font-bold text-stone-800">活動記録一覧</h1>
 
       <div className="flex flex-wrap gap-2">
         <button

@@ -46,7 +46,7 @@ export default function TeacherReportsPage() {
                 key={p}
                 onClick={() => setPeriod(p)}
                 className={`rounded-full px-3 py-1.5 text-xs font-medium ${
-                  period === p ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"
+                  period === p ? "bg-brand-600 text-white" : "bg-stone-100 text-stone-600"
                 }`}
               >
                 {p}
@@ -58,7 +58,7 @@ export default function TeacherReportsPage() {
         <button
           disabled={!studentId}
           onClick={() => router.push(`/teacher/reports/${studentId}?period=${encodeURIComponent(period)}`)}
-          className="rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 disabled:opacity-40"
+          className="rounded-full bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-40"
         >
           レポートを生成する
         </button>

@@ -45,7 +45,7 @@ export default function NewTaskPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="mb-6 text-lg font-bold text-stone-800">記録タスクを発行する</h1>
+      <h1 className="mb-6 text-lg font-bold text-stone-800">記録する宿題を発行する</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
         <div>
           <label className="mb-1 block text-xs font-semibold text-stone-600">対象活動（タイトル）</label>
@@ -66,7 +66,7 @@ export default function NewTaskPage() {
                 key={c}
                 onClick={() => setCategory(c)}
                 className={`rounded-full px-3 py-1.5 text-xs font-medium ${
-                  category === c ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"
+                  category === c ? "bg-brand-600 text-white" : "bg-stone-100 text-stone-600"
                 }`}
               >
                 {c}
@@ -103,7 +103,7 @@ export default function NewTaskPage() {
               type="button"
               onClick={() => setTargetType("all")}
               className={`rounded-full px-3 py-1.5 text-xs font-medium ${
-                targetType === "all" ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"
+                targetType === "all" ? "bg-brand-600 text-white" : "bg-stone-100 text-stone-600"
               }`}
             >
               コース全員へ一斉発行
@@ -112,7 +112,7 @@ export default function NewTaskPage() {
               type="button"
               onClick={() => setTargetType("individual")}
               className={`rounded-full px-3 py-1.5 text-xs font-medium ${
-                targetType === "individual" ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"
+                targetType === "individual" ? "bg-brand-600 text-white" : "bg-stone-100 text-stone-600"
               }`}
             >
               個別に指定する
@@ -130,7 +130,7 @@ export default function NewTaskPage() {
                   key={s.id}
                   onClick={() => toggleStudent(s.id)}
                   className={`rounded-full px-3 py-1.5 font-mono text-xs font-medium ${
-                    targetStudentIds.includes(s.id) ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"
+                    targetStudentIds.includes(s.id) ? "bg-brand-600 text-white" : "bg-stone-100 text-stone-600"
                   }`}
                 >
                   {s.id}
@@ -143,7 +143,7 @@ export default function NewTaskPage() {
         <button
           type="submit"
           disabled={!canSubmit}
-          className="rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-full bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-40"
         >
           発行する
         </button>

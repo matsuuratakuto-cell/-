@@ -66,7 +66,6 @@ export interface Student {
   grade: Grade;
   course: Course;
   className: string;
-  points: number;
   streakDays: number;
   lastRecordDate?: string;
 }
@@ -88,12 +87,4 @@ export interface Task {
   targetStudentIds: string[];
   createdAt: string;
   createdBy: string;
-}
-
-export interface PointEvent {
-  id: string;
-  studentId: string;
-  amount: number;
-  reason: string;
-  createdAt: string;
 }

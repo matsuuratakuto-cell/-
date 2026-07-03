@@ -24,7 +24,7 @@ export function ReportClient({ studentId, period }: { studentId: string; period:
         </Link>
         <button
           onClick={() => window.print()}
-          className="rounded-full bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-700"
+          className="rounded-full bg-brand-600 px-4 py-2 text-xs font-semibold text-white hover:bg-brand-700"
         >
           PDF出力（印刷ダイアログ）
         </button>
@@ -39,7 +39,7 @@ export function ReportClient({ studentId, period }: { studentId: string; period:
           <p className="text-xs text-stone-400">出力日：{nowDateStr()}</p>
         </div>
 
-        <div className="mb-6 grid grid-cols-2 gap-4 text-sm">
+        <div className="mb-6 grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
           <div>
             <p className="text-xs text-stone-400">生徒番号</p>
             <p className="font-mono font-semibold text-stone-800">{studentId}</p>
@@ -89,7 +89,7 @@ export function ReportClient({ studentId, period }: { studentId: string; period:
           <p className="mb-3 text-sm leading-relaxed text-stone-700">
             {narrative.overview} {narrative.change}
           </p>
-          <div className="grid grid-cols-2 gap-4 text-xs">
+          <div className="grid grid-cols-1 gap-4 text-xs sm:grid-cols-2">
             <div className="rounded-lg bg-stone-50 p-3">
               <p className="mb-1 font-semibold text-stone-500">前半（Before）・{before.length}件</p>
               <ul className="flex flex-col gap-1 text-stone-600">
@@ -98,8 +98,8 @@ export function ReportClient({ studentId, period }: { studentId: string; period:
                 ))}
               </ul>
             </div>
-            <div className="rounded-lg bg-teal-50 p-3">
-              <p className="mb-1 font-semibold text-teal-700">後半（After）・{after.length}件</p>
+            <div className="rounded-lg bg-brand-50 p-3">
+              <p className="mb-1 font-semibold text-brand-700">後半（After）・{after.length}件</p>
               <ul className="flex flex-col gap-1 text-stone-600">
                 {after.map((r) => (
                   <li key={r.id}>・{r.title}</li>

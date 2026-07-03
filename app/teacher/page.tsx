@@ -175,7 +175,7 @@ export default function TeacherDashboard() {
                   {s.grade}年{s.className} ・ {s.course}
                 </p>
                 <p className="text-xs text-stone-500">
-                  {s.points}pt ・ 記録 {studentRecords.length} 件
+                  連続記録 {s.streakDays} 日 ・ 記録 {studentRecords.length} 件
                 </p>
               </div>
             </Link>

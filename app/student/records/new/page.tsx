@@ -62,7 +62,7 @@ function NewRecordForm() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-5 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
         {openTasks.length > 0 && (
           <div>
-            <label className="mb-1 block text-xs font-semibold text-stone-600">対応するタスク（任意）</label>
+            <label className="mb-1 block text-xs font-semibold text-stone-600">対応する宿題（任意）</label>
             <select
               value={taskId}
               onChange={(e) => setTaskId(e.target.value)}
@@ -89,7 +89,7 @@ function NewRecordForm() {
                 key={c}
                 onClick={() => setCategory(c)}
                 className={`rounded-full px-3 py-1.5 text-xs font-medium ${
-                  category === c ? "bg-teal-600 text-white" : "bg-stone-100 text-stone-600"
+                  category === c ? "bg-brand-600 text-white" : "bg-stone-100 text-stone-600"
                 }`}
               >
                 {c}
@@ -178,7 +178,7 @@ function NewRecordForm() {
         <button
           type="submit"
           disabled={!canSubmit || submitting}
-          className="rounded-full bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-full bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-40"
         >
           保存してAI深掘りを始める
         </button>

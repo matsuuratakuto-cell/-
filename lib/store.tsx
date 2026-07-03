@@ -5,7 +5,6 @@ import { getQuestionForRound } from "./aiQuestions";
 import { buildAISummary } from "./aiSummary";
 import { newId } from "./id";
 import {
-  INITIAL_POINT_EVENTS,
   INITIAL_RECORDS,
   INITIAL_STUDENTS,
   INITIAL_TASKS,
@@ -19,7 +18,6 @@ import {
   Category,
   Course,
   Grade,
-  PointEvent,
   Student,
   Task,
   TaskTargetType,
@@ -32,7 +30,6 @@ interface PersistedState {
   students: Student[];
   records: ActivityRecord[];
   tasks: Task[];
-  pointEvents: PointEvent[];
   currentTeacherId: string;
   currentStudentId: string;
   reminders: ReminderLog[];
@@ -49,7 +46,6 @@ function seedState(): PersistedState {
     students: INITIAL_STUDENTS,
     records: INITIAL_RECORDS,
     tasks: INITIAL_TASKS,
-    pointEvents: INITIAL_POINT_EVENTS,
     currentTeacherId: TEACHERS[0].id,
     currentStudentId: INITIAL_STUDENTS[0].id,
     reminders: [],
@@ -151,23 +147,18 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
       const student = state.students.find((s) => s.id === input.studentId);
       let streakDays = 1;
-      let streakBonus = 0;
       if (student?.lastRecordDate === input.date) {
         streakDays = student.streakDays;
       } else if (student?.lastRecordDate && isConsecutiveDay(student.lastRecordDate, input.date)) {
         streakDays = student.streakDays + 1;
-        streakBonus = streakDays * 2;
       }
 
-      let taskBonus = 0;
       let submittedLate: boolean | undefined;
       const task = input.taskId ? state.tasks.find((t) => t.id === input.taskId) : undefined;
       if (task) {
         submittedLate = new Date(createdAt) > new Date(task.dueAt);
-        if (!submittedLate) taskBonus = 20;
       }
 
-      const basePoints = 10;
       const newRecord: ActivityRecord = {
         id: recordId,
         studentId: input.studentId,
@@ -193,28 +184,14 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         createdAt,
       };
 
-      const events: PointEvent[] = [
-        { id: newId("P"), studentId: input.studentId, amount: basePoints, reason: `記録を書く：${input.title}`, createdAt },
-      ];
-      if (streakBonus > 0) {
-        events.push({ id: newId("P"), studentId: input.studentId, amount: streakBonus, reason: `継続ボーナス（${streakDays}日連続）`, createdAt });
-      }
-      if (taskBonus > 0) {
-        events.push({ id: newId("P"), studentId: input.studentId, amount: taskBonus, reason: `タスク早期提出ボーナス：${task?.title ?? ""}`, createdAt });
-      }
-      const totalPoints = basePoints + streakBonus + taskBonus;
-
       setState((prev) => {
         if (!prev) return prev;
         return {
           ...prev,
           records: [newRecord, ...prev.records],
           students: prev.students.map((s) =>
-            s.id === input.studentId
-              ? { ...s, points: s.points + totalPoints, streakDays, lastRecordDate: input.date }
-              : s
+            s.id === input.studentId ? { ...s, streakDays, lastRecordDate: input.date } : s
           ),
-          pointEvents: [...events, ...prev.pointEvents],
         };
       });
 
@@ -265,7 +242,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       const record = state.records.find((r) => r.id === recordId);
       if (!record) return;
       const summary = buildAISummary({ category: record.category, title: record.title }, record.aiDialogue.rounds);
-      const createdAt = nowISO();
       setState((prev) => {
         if (!prev) return prev;
         return {
@@ -275,13 +251,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
               ? { ...r, aiDialogue: { ...r.aiDialogue, status: "closed", completedFully: true, summary } }
               : r
           ),
-          students: prev.students.map((s) =>
-            s.id === record.studentId ? { ...s, points: s.points + 15 } : s
-          ),
-          pointEvents: [
-            { id: newId("P"), studentId: record.studentId, amount: 15, reason: `AI深掘りを完了：${record.title}`, createdAt },
-            ...prev.pointEvents,
-          ],
         };
       });
     };

@@ -1,7 +1,7 @@
 export function ProgressBar({
   value,
   max,
-  colorClassName = "bg-teal-500",
+  colorClassName = "bg-brand-500",
   trackClassName = "bg-stone-100",
 }: {
   value: number;

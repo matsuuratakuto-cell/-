@@ -10,7 +10,7 @@ export function TaskDetailClient({ taskId }: { taskId: string }) {
   const { tasks, students, getStudent, getSubmissionForTask, remindStudent, wasReminded } = useStore();
   const task = tasks.find((t) => t.id === taskId);
 
-  if (!task) return <p className="text-sm text-stone-400">タスクが見つかりません。</p>;
+  if (!task) return <p className="text-sm text-stone-400">宿題が見つかりません。</p>;
 
   const targetIds = task.targetType === "all" ? students.map((s) => s.id) : task.targetStudentIds;
   const overdue = new Date(task.dueAt) < MOCK_NOW;
@@ -54,7 +54,7 @@ export function TaskDetailClient({ taskId }: { taskId: string }) {
           </div>
         )}
         {submission && (
-          <Link href={`/teacher/records/${submission.id}`} className="text-xs text-indigo-600 hover:underline">
+          <Link href={`/teacher/records/${submission.id}`} className="text-xs text-brand-600 hover:underline">
             記録を見る →
           </Link>
         )}
@@ -65,7 +65,7 @@ export function TaskDetailClient({ taskId }: { taskId: string }) {
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-5">
       <Link href="/teacher/tasks" className="text-xs text-stone-400 hover:text-stone-600">
-        ← タスク一覧に戻る
+        ← 宿題一覧に戻る
       </Link>
 
       <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
@@ -85,7 +85,7 @@ export function TaskDetailClient({ taskId }: { taskId: string }) {
         <SubmissionStats
           submitted={submittedCount}
           total={targetIds.length}
-          barColorClassName={overdue ? "bg-rose-400" : "bg-indigo-500"}
+          barColorClassName={overdue ? "bg-rose-400" : "bg-brand-500"}
         />
       </div>
 
@@ -96,7 +96,7 @@ export function TaskDetailClient({ taskId }: { taskId: string }) {
           return (
             <div key={className} className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
               <p className="mb-2 text-xs font-semibold text-stone-700">{className}</p>
-              <SubmissionStats submitted={classSubmitted} total={ids.length} barColorClassName="bg-indigo-400" className="mb-3" />
+              <SubmissionStats submitted={classSubmitted} total={ids.length} barColorClassName="bg-brand-400" className="mb-3" />
               <ul className="flex flex-col divide-y divide-stone-100">{ids.map((id) => renderStudentRow(id))}</ul>
             </div>
           );

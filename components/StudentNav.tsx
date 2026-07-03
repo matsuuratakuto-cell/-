@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LinkButton } from "@/components/Button";
 import { useStore } from "@/lib/store";
 
 const LINKS = [
   { href: "/student", label: "ダッシュボード" },
   { href: "/student/records", label: "活動記録" },
-  { href: "/student/records/new", label: "記録する" },
-  { href: "/student/tasks", label: "タスク" },
+  { href: "/student/tasks", label: "宿題" },
 ];
 
 export function StudentNav() {
@@ -17,16 +17,21 @@ export function StudentNav() {
 
   return (
     <div className="sticky top-0 z-20 border-b border-stone-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3">
-        <div className="flex items-center gap-3">
-          <Link href="/" className="text-sm font-semibold text-stone-400 hover:text-stone-600">
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 pt-3">
+        <div className="flex min-w-0 items-center gap-3">
+          <Link href="/" className="shrink-0 text-sm font-semibold text-stone-400 hover:text-stone-600">
             ← モックTOP
           </Link>
-          <span className="rounded-full bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-700 ring-1 ring-inset ring-teal-200">
+          <span className="shrink-0 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700 ring-1 ring-inset ring-brand-200">
             生徒として表示中
           </span>
         </div>
-        <label className="flex items-center gap-2 text-xs text-stone-500">
+        <LinkButton href="/student/records/new" color="teal" size="sm">
+          ＋ 記録する
+        </LinkButton>
+      </div>
+      <div className="mx-auto max-w-5xl px-4 py-2">
+        <label className="flex flex-wrap items-center gap-2 text-xs text-stone-500">
           表示する生徒（ログイン代替）
           <select
             value={currentStudentId}
@@ -49,7 +54,7 @@ export function StudentNav() {
               key={l.href}
               href={l.href}
               className={`whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium transition ${
-                active ? "bg-teal-600 text-white" : "text-stone-600 hover:bg-stone-100"
+                active ? "bg-brand-600 text-white" : "text-stone-600 hover:bg-stone-100"
               }`}
             >
               {l.label}

@@ -4,9 +4,9 @@ import { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 export type ButtonColor = "teal" | "indigo" | "rose" | "amber" | "white";
 
 const COLOR_STYLES: Record<ButtonColor, string> = {
-  teal: "bg-teal-500 text-white shadow-[0_4px_0_0_#0f766e] active:shadow-[0_0px_0_0_#0f766e] hover:bg-teal-400",
+  teal: "bg-brand-600 text-white shadow-[0_4px_0_0_#253763] active:shadow-[0_0px_0_0_#253763] hover:bg-brand-500",
   indigo:
-    "bg-indigo-500 text-white shadow-[0_4px_0_0_#3730a3] active:shadow-[0_0px_0_0_#3730a3] hover:bg-indigo-400",
+    "bg-brand-600 text-white shadow-[0_4px_0_0_#253763] active:shadow-[0_0px_0_0_#253763] hover:bg-brand-500",
   rose: "bg-rose-500 text-white shadow-[0_4px_0_0_#9f1239] active:shadow-[0_0px_0_0_#9f1239] hover:bg-rose-400",
   amber:
     "bg-amber-400 text-stone-900 shadow-[0_4px_0_0_#b45309] active:shadow-[0_0px_0_0_#b45309] hover:bg-amber-300",
@@ -21,7 +21,7 @@ const SIZE_STYLES = {
 };
 
 const BASE =
-  "inline-flex items-center justify-center gap-1.5 rounded-2xl font-bold transition-all duration-100 active:translate-y-1 disabled:pointer-events-none disabled:opacity-40 disabled:active:translate-y-0";
+  "inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-2xl font-bold transition-all duration-100 active:translate-y-1 disabled:pointer-events-none disabled:opacity-40 disabled:active:translate-y-0";
 
 interface CommonProps {
   color?: ButtonColor;

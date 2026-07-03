@@ -31,13 +31,13 @@ export function StudentRecordsClient({ studentId }: { studentId: string }) {
         <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
           <p className="font-mono text-base font-bold text-stone-800">{student.id}</p>
           <p className="text-xs text-stone-500">
-            {student.points}pt ・ 連続記録 {student.streakDays}日 ・ 記録 {getRecordsByStudent(studentId).length}件
+            連続記録 {student.streakDays}日 ・ 記録 {getRecordsByStudent(studentId).length}件
           </p>
         </div>
         {tasks.length > 0 ? (
-          <SubmissionStats submitted={submittedCount} total={tasks.length} barColorClassName="bg-indigo-500" />
+          <SubmissionStats submitted={submittedCount} total={tasks.length} barColorClassName="bg-brand-500" />
         ) : (
-          <p className="text-xs text-stone-400">対応中のタスクはありません。</p>
+          <p className="text-xs text-stone-400">対応中の宿題はありません。</p>
         )}
       </div>
 
