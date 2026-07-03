@@ -36,7 +36,6 @@ create table students (
   grade smallint check (grade between 1 and 3),
   course student_course,
   class_name text,
-  points integer not null default 0,
   streak_days integer not null default 0,
   last_record_date date,
   created_at timestamptz not null default now()
@@ -134,15 +133,6 @@ create table feedback (
   created_at timestamptz not null default now()
 );
 
--- ポイント履歴
-create table point_events (
-  id uuid primary key default gen_random_uuid(),
-  student_id text not null references students(id) on delete cascade,
-  amount integer not null,
-  reason text not null,
-  created_at timestamptz not null default now()
-);
-
 -- タスクの督促ログ
 create table reminders (
   id uuid primary key default gen_random_uuid(),
@@ -224,7 +214,6 @@ alter table records enable row level security;
 alter table ai_question_bank enable row level security;
 alter table ai_dialogue_rounds enable row level security;
 alter table feedback enable row level security;
-alter table point_events enable row level security;
 alter table reminders enable row level security;
 
 -- teachers: 認証済みなら誰でも氏名一覧を読める（氏名は非匿名情報のため問題なし）
@@ -306,13 +295,6 @@ create policy feedback_select on feedback for select
     )
   );
 
-create policy point_events_select on point_events for select
-  to authenticated using (
-    student_id = current_student_id()
-    or is_admin()
-    or exists (select 1 from teacher_assignments ta where ta.student_id = point_events.student_id and ta.teacher_id = current_teacher_id())
-  );
-
 create policy reminders_select on reminders for select
   to authenticated using (
     student_id = current_student_id()
@@ -344,8 +326,6 @@ declare
   v_student students;
   v_task tasks;
   v_streak_days integer;
-  v_streak_bonus integer := 0;
-  v_task_bonus integer := 0;
   v_submitted_late boolean;
   v_record records;
   v_q ai_question_bank;
@@ -360,7 +340,6 @@ begin
     v_streak_days := v_student.streak_days;
   elsif v_student.last_record_date = (p_activity_date - 1) then
     v_streak_days := v_student.streak_days + 1;
-    v_streak_bonus := v_streak_days * 2;
   else
     v_streak_days := 1;
   end if;
@@ -368,9 +347,6 @@ begin
   if p_task_id is not null then
     select * into v_task from tasks where id = p_task_id;
     v_submitted_late := now() > v_task.due_at;
-    if not v_submitted_late then
-      v_task_bonus := 20;
-    end if;
   end if;
 
   insert into records (student_id, category, title, activity_date, content, reflection, photos, visibility, task_id, submitted_late)
@@ -381,18 +357,9 @@ begin
   insert into ai_dialogue_rounds (record_id, round, question, choices) values (v_record.id, 1, v_q.question, v_q.choices);
 
   update students
-    set points = points + 10 + v_streak_bonus + v_task_bonus,
-        streak_days = v_streak_days,
+    set streak_days = v_streak_days,
         last_record_date = p_activity_date
     where id = v_student_id;
-
-  insert into point_events (student_id, amount, reason) values (v_student_id, 10, '記録を書く：' || p_title);
-  if v_streak_bonus > 0 then
-    insert into point_events (student_id, amount, reason) values (v_student_id, v_streak_bonus, '継続ボーナス（' || v_streak_days || '日連続）');
-  end if;
-  if v_task_bonus > 0 then
-    insert into point_events (student_id, amount, reason) values (v_student_id, v_task_bonus, 'タスク早期提出ボーナス：' || v_task.title);
-  end if;
 
   return v_record;
 end;
@@ -480,9 +447,29 @@ begin
   update records set ai_status = 'closed', ai_completed_fully = true, ai_summary = v_summary
     where id = p_record_id returning * into v_record;
 
-  update students set points = points + 15 where id = v_student_id;
-  insert into point_events (student_id, amount, reason) values (v_student_id, 15, 'AI深掘りを完了：' || v_title);
+  return v_record;
+end;
+$$;
 
+-- 生徒がAI生成サマリーを編集する（教員が確認済みにする前のみ・12章③で確定）
+create function update_ai_summary(p_record_id uuid, p_summary text) returns records
+language plpgsql security definer set search_path = public as $$
+declare
+  v_student_id text := current_student_id();
+  v_record records;
+begin
+  select * into v_record from records where id = p_record_id;
+  if v_record.student_id is null or v_record.student_id <> v_student_id then
+    raise exception '自分の記録以外は操作できません';
+  end if;
+  if v_record.status <> '未確認' then
+    raise exception '教員が確認済みにした記録のサマリーは編集できません';
+  end if;
+  if v_record.ai_status <> 'closed' then
+    raise exception 'AI対話が完了していない記録のサマリーは編集できません';
+  end if;
+
+  update records set ai_summary = p_summary where id = p_record_id returning * into v_record;
   return v_record;
 end;
 $$;

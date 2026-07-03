@@ -92,6 +92,7 @@ interface StoreValue extends PersistedState {
   answerDialogueRound: (recordId: string, round: number, selectedIndex: number) => void;
   continueDialogue: (recordId: string) => void;
   closeDialogue: (recordId: string) => void;
+  updateAISummary: (recordId: string, summary: string) => void;
   addFeedback: (recordId: string, teacherName: string, comment: string) => void;
   setRecordStatus: (recordId: string, status: "未確認" | "確認済み") => void;
   addTask: (input: NewTaskInput) => Task;
@@ -255,6 +256,26 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       });
     };
 
+    const updateAISummary: StoreValue["updateAISummary"] = (recordId, summary) => {
+      const record = state.records.find((r) => r.id === recordId);
+      if (!record) return;
+      if (record.status !== "未確認") {
+        throw new Error("教員が確認済みにした記録のサマリーは編集できません");
+      }
+      if (record.aiDialogue.status !== "closed") {
+        throw new Error("AI対話が完了していない記録のサマリーは編集できません");
+      }
+      setState((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          records: prev.records.map((r) =>
+            r.id === recordId ? { ...r, aiDialogue: { ...r.aiDialogue, summary } } : r
+          ),
+        };
+      });
+    };
+
     const addFeedback: StoreValue["addFeedback"] = (recordId, teacherName, comment) => {
       setState((prev) => {
         if (!prev) return prev;
@@ -329,6 +350,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       answerDialogueRound,
       continueDialogue,
       closeDialogue,
+      updateAISummary,
       addFeedback,
       setRecordStatus,
       addTask,

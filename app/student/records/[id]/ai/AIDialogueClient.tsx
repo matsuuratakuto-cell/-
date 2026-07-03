@@ -115,7 +115,6 @@ export function AIDialogueClient({ recordId }: { recordId: string }) {
           <div className="flex flex-col gap-3 rounded-xl bg-brand-50 p-4">
             <p className="text-xs font-bold text-brand-700">✅ AIサマリー（教員への報告用・約400字）</p>
             <p className="text-sm leading-relaxed text-stone-700">{dialogue.summary}</p>
-            <p className="text-xs text-brand-600">記録を書く・AI深掘りを完了したことでポイントが加算されました。</p>
             <div className="flex gap-2">
               <Link href={`/student/records/${record.id}`} className="rounded-full bg-brand-600 px-4 py-2 text-xs font-semibold text-white hover:bg-brand-700">
                 記録の詳細を見る

@@ -1,19 +1,33 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { LateBadge, StatusBadge } from "@/components/StatusBadge";
 import { useStore } from "@/lib/store";
 
 export function RecordDetailClient({ recordId }: { recordId: string }) {
-  const { getRecord } = useStore();
+  const { getRecord, updateAISummary } = useStore();
   const record = getRecord(recordId);
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState("");
 
   if (!record) {
     return <p className="text-sm text-stone-400">記録が見つかりません。</p>;
   }
 
   const dialogueDone = record.aiDialogue.status === "closed";
+  const canEditSummary = dialogueDone && record.status === "未確認";
+
+  function startEditing() {
+    setDraft(record!.aiDialogue.summary ?? "");
+    setEditing(true);
+  }
+
+  function handleSave() {
+    updateAISummary(recordId, draft.trim());
+    setEditing(false);
+  }
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-5">
@@ -60,7 +74,43 @@ export function RecordDetailClient({ recordId }: { recordId: string }) {
           </Link>
         </div>
         {dialogueDone && record.aiDialogue.summary ? (
-          <p className="text-sm leading-relaxed text-stone-700">{record.aiDialogue.summary}</p>
+          editing ? (
+            <div className="flex flex-col gap-2">
+              <textarea
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                rows={6}
+                className="w-full rounded-lg border border-stone-300 p-3 text-sm leading-relaxed text-stone-700"
+              />
+              <div className="flex gap-2">
+                <button
+                  onClick={handleSave}
+                  className="rounded-full bg-brand-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-brand-700"
+                >
+                  保存する
+                </button>
+                <button
+                  onClick={() => setEditing(false)}
+                  className="rounded-full border border-stone-300 px-4 py-1.5 text-xs font-semibold text-stone-600 hover:bg-stone-100"
+                >
+                  キャンセル
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <p className="text-sm leading-relaxed text-stone-700">{record.aiDialogue.summary}</p>
+              {canEditSummary ? (
+                <button onClick={startEditing} className="self-start text-xs font-semibold text-brand-600 hover:underline">
+                  サマリーを編集する
+                </button>
+              ) : (
+                <p className="text-[11px] text-stone-400">
+                  ※ 教員が確認済みにした記録のサマリーは編集できません。
+                </p>
+              )}
+            </div>
+          )
         ) : (
           <p className="text-xs text-stone-400">
             {record.aiDialogue.status === "awaiting_continue_choice"
